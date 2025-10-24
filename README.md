@@ -165,5 +165,4 @@ python chips_client.py
 
 
 
-# Setup
-python oracle_mcp.py
+
