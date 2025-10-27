@@ -36,9 +36,9 @@ def table_comments(table: str) -> list[dict]:
             select column_name, comments
             from user_col_comments
             where table_name =  :t
-            ORDER BY column_name asc
+            ORDER BY column_name
         """, t=table.upper())
-        return [{"column_name": c[0], "comments": c[1]} for c in cur]
+        return [{"column_name": c[0], "comments": c[1]} for c in cur.fetchall()]
 
 if __name__ == "__main__":
    mcp.run(transport="http", port=8000)

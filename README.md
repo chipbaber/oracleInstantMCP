@@ -165,4 +165,11 @@ python chips_client.py
 
 
 
+- To add your MCP Server to VS Code:
+   - Create a new folder called .vscode
+   - Create a new file called mcp.json
+   - Click add server, select http
+   - 
+
+
 

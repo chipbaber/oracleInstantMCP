@@ -10,9 +10,9 @@ async def call_tool(name: str):
         print(result)
 """
 """First example DB MCP Call """
-async def call_tool(name: str):
+async def call_tool(tablename: str):
     async with client:
-        result = await client.call_tool("Get-Player-Table-Column-Comments", {"table": name})
+        result = await client.call_tool("Get-Player-Table-Column-Comments", {"table": tablename})
         print(result)
 
 
