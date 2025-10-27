@@ -16,6 +16,7 @@ class DatabaseConnection:
         Attempt to locate Oracle Instant Client directory
         """
         possible_paths = [r"C:\Oracle\instantclient-basic-windows.x64-23.9.0.25.07\instantclient_23_9"]
+  
         
         for path in possible_paths:
             if os.path.exists(path):
@@ -133,6 +134,7 @@ if __name__ == "__main__":
     DB_PASS = os.getenv("DB_PASS", "")
     DB_DSN = os.getenv("DB_DSN", "")  # TNS name from tnsnames.ora
     WALLET_LOCATION = os.getenv("WALLET_LOCATION", "")  # Path to wallet directory
+    
     
     db = DatabaseConnection()
     if db.connect(DB_USER, DB_PASS, DB_DSN, WALLET_LOCATION):
