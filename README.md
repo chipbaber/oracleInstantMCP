@@ -3,9 +3,8 @@ This markdown will walk you through how to create your own MCP server in python 
 
 # Pre-reqs
 - If using windows install Git Bash. [https://gitforwindows.org/](https://gitforwindows.org/)
-- Follow the steps in this video to install download your database wallet, install Visual Studio Code, connect to co-pilot and Oracle VS Studio plugin. We will show how to create a user, table and load data in the video below. [https://www.youtube.com/watch?v=TvQb7H11zYM&list=PLsnBif_-5JnA8Hzvp8e1bQ3fo6VEvYEB0&index=4&pp=gAQBiAQB](https://www.youtube.com/watch?v=TvQb7H11zYM&list=PLsnBif_-5JnA8Hzvp8e1bQ3fo6VEvYEB0&index=4&pp=gAQBiAQB)
-
-- Setup Oracle Instant Client and SQL*Plus Package. And paste in the cwallet.sso, sqlnet.ora and tnsnames.ora from your wallet. []()
+- Download and install the Oracle Instant Client, SQL*Plus and your 26ai Database Wallet. Please watch this instructional video: [https://youtu.be/DyJRgrMDPx8](https://youtu.be/DyJRgrMDPx8)
+- Follow the steps in this video install Visual Studio Code, connect to co-pilot and Oracle VS Studio plugin. You can skip the creation of a database user and loading of data, that will be covered in the steps below specific to the MCP server creation. [https://www.youtube.com/watch?v=TvQb7H11zYM&list=PLsnBif_-5JnA8Hzvp8e1bQ3fo6VEvYEB0&index=4&pp=gAQBiAQB](https://www.youtube.com/watch?v=TvQb7H11zYM&list=PLsnBif_-5JnA8Hzvp8e1bQ3fo6VEvYEB0&index=4&pp=gAQBiAQB)
 
 
 # Create a User in the Database
@@ -168,22 +167,27 @@ sqlplus players@<your tnsnames entry>
 ```
 
 # Install Required Python Libraries
-- Open a Git Bash shell session inside Visual Studio Code. 
+- Open a Git Bash shell session inside Visual Studio Code and install the following python packages.
 ```
 pip install oracledb
 pip install fastmcp
+pip install typing
 ```
 
-- Export connection parameters or create a .profile and run. 
+- Create a new .demo_profile file inside your VS Code Directory and paste in the following 
 ```
-export DB_USER=your_username
-export DB_PASS=your_password
-export DB_DSN=your_tns_name
-export WALLETT_LOCATION=path_to_wallet
-```
+# Oracle 26ai Autonomous Database Connection Settings
+export DB_USER="players"  # Replace with your database username
+export DB_PASS="<your pwd>"       # Replace with your database password
+export DB_DSN="<your dsn>"        # Replace with your TNS name (e.g., luggersapex_low)
+export WALLET_LOCATION="<your path to wallet>"  # Replace with the full path to your wallet directory ex. C:\Users\Chip Baber\code\db_wallets\Wallet_SluggersAPEX
+export INSTANT_CLIENT_DIR="<your instant client dir>" #Replace with path to instant client. ex. C:\Oracle\instantclient-basic-windows.x64-23.9.0.25.07\instantclient_23_9
 
-- Open dbconnect.py and set the path to your instaclient install on line 18.
-![](assets/2025-10-23-10-27-43.png)
+# Load additional local settings if they exist
+if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+```
 
 - Test your login to the database via python.
 ```
@@ -219,13 +223,16 @@ python chips_client.py
    ![](assets/2025-10-27-16-49-27.png)
 - Type the # in the chat to see your MCP Server
    ![](assets/2025-10-27-16-51-00.png)
-- You can select it and ask a question or if your notes are good enough ask a question directly. 
+
+- You can select it and ask a question or if your notes are good enough ask a question directly. Lets test our MCP server and newly created tools now. 
 
 ```
-What do the AB and QAB columns hold in the teamstats table
+What do the AB and H columns do in the teamstats table
 ```
 ![](assets/2025-10-27-16-55-11.png)
 
 
-
-
+```
+get all stats for Tank, then calculate his batting average and on base percentage
+```
+![](assets/2025-10-30-14-43-35.png)
