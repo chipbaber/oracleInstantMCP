@@ -23,7 +23,7 @@ def _conn():
         return None
 
 
-# MCP Tool to stats for a player
+# MCP Tool to retrive stats for a player
 @mcp.tool()(
     name="Get-Players-Stats",
     description="Query the Teamstats table to return the stats for a player based on an inputed name.", 
@@ -44,26 +44,6 @@ def player_stats(player_name: str) -> list[dict]:
         "Runs Batted In": c[13],"Runs": c[14],"Stolen Bases": c[15],} for c in cur.fetchall()]
 
 
-# MCP Tool to get the metadata for the columns on a table
-@mcp.tool()(
-    name="Get-Table-Column-Comments",
-    description="As the players user in a 26ai Oracle Database you will query to get column comments for the inputted table.", 
-    tags={"comments", "search", "table"},      
-    meta={"version": "1.0", "author": "Chip Baber"}  
-)
-def table_comments(table: str) -> list[dict]:
-    """Get all comments for columns on a table"""
-    with _conn() as con:
-        cur = con.cursor()
-        cur.execute("""
-            select column_name, comments
-            from user_col_comments
-            where table_name =  :t
-            ORDER BY column_name
-        """, t=table.upper())
-        return [{"column_name": c[0], "comments": c[1]} for c in cur.fetchall()]
-
-
 # MCP Tool to show how to call a 26ai Autonomous database procedure to perform a calculation.
 @mcp.tool()(
     name="Get-Players-AVG-OBP",
@@ -79,7 +59,7 @@ def table_comments(table: str) -> list[dict]:
 )
 def getAvgOBP(atbats: Annotated[int,"Input variable for the number of at bats a baseball player has in a game or season."],
     hits: Annotated[int,"Input variable for the number of hits a baseball player has in a game or season."],
-    walks_hbp: Annotated[int, "Input variable for the total number of walks and hit by pitches a baseball player has in a game or season."],
+    walks_hbp: Annotated[int, "Input variable for the total number of walks added to the total number of hit by pitches a baseball player has in a game or season."],
     sacrifices: Annotated[int,"Input variable for the number of at sacrifices a baseball player has in a game or season."]
     ) -> dict:
     """Execute a procedure in the players schema to calculate and return a result"""
@@ -101,6 +81,25 @@ def getAvgOBP(atbats: Annotated[int,"Input variable for the number of at bats a 
         # Log the exception
         logging.error(f"An error occurred: {e}")
         return None
+
+# MCP Tool to get the metadata for the columns on a table
+@mcp.tool()(
+    name="Get-Table-Column-Comments",
+    description="As the players user in a 26ai Oracle Database you will query to get column comments for the inputted table.", 
+    tags={"comments", "search", "table"},      
+    meta={"version": "1.0", "author": "Chip Baber"}  
+)
+def table_comments(table: str) -> list[dict]:
+    """Get all comments for columns on a table"""
+    with _conn() as con:
+        cur = con.cursor()
+        cur.execute("""
+            select column_name, comments
+            from user_col_comments
+            where table_name =  :t
+            ORDER BY column_name
+        """, t=table.upper())
+        return [{"column_name": c[0], "comments": c[1]} for c in cur.fetchall()]
 
 if __name__ == "__main__":
    mcp.run(transport="http", port=8000)
