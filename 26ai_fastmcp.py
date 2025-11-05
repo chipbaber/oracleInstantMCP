@@ -59,7 +59,7 @@ def player_stats(player_name: str) -> list[dict]:
 )
 def getAvgOBP(atbats: Annotated[int,"Input variable for the number of at bats a baseball player has in a game or season."],
     hits: Annotated[int,"Input variable for the number of hits a baseball player has in a game or season."],
-    walks_hbp: Annotated[int, "Input variable for the total number of walks added to the total number of hit by pitches a baseball player has in a game or season."],
+    walks_hbp: Annotated[int, "Input variable for the total number of walks added to/plus the total number of hit by pitches a baseball player has in a game or season."],
     sacrifices: Annotated[int,"Input variable for the number of at sacrifices a baseball player has in a game or season."]
     ) -> dict:
     """Execute a procedure in the players schema to calculate and return a result"""

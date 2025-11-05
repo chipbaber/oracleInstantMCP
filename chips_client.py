@@ -24,7 +24,7 @@ asyncio.run(call_tool(10,2,2,1))
 """
 
 
-"""First example DB MCP Call """
+"""First example DB MCP Call 
 async def call_tool(tablename: str):
     async with client:
         result = await client.call_tool("Get-Table-Column-Comments", {"table": tablename})
@@ -32,7 +32,7 @@ async def call_tool(tablename: str):
 
 
 asyncio.run(call_tool("TEAMSTATS"))
-
+"""
 
 
 
