@@ -1,5 +1,9 @@
-# Instuctions
-This markdown will walk you through how to create your own MCP server, leveraging FastMCO in python with three mcp tools example calls to an Oracle 26ai database running on OCI. The tools will showcase how to query the table comments so the LLM understands the data, will show how to query and return a limited set of data from a single table exposed as a tool. Then show how to create and call a tool that executes a pl/sql procedure and returns a result. 
+# How to Create a MCP Server with Tools to Access a 26ai Autonomous Database Table & Procedure
+ Do you have an existing Oracle database with years of tables, procedures and functional code? Do you want to expose a piece of this database to LLMs to more rapidly assist users perform required actions? Are you curious to see how easy it is to develop with MCP against an Autonmous AI database in the Cloud? 
+ 
+ This example code and video will walk you through an introduction look at how to create your first MCP server to access an Oracle Autonmous AI database leveraging python and FastMCP. The video begins by creating a new database user inside a 26ai database. Once created we will showcase how to create a connect to the user account via VS Code and install a sample table, load data and installing a sample pl/sql proceudre to be leveraged by our MCP server. Next we will show how to create a .profile with the required connection information to access our database and install the required python libraries to run FastMCP. With the setup complete we will walk through step by step each line of code on how to create a MCP tool that inputs a parameter and queries and returns values from a table. After the code is created, we will showcase how to access the tool from a command line client to test our connection to the 26ai database an check for the desired results. Next we will add second MCP tool that demonstrates how to call a database procedure with multiple input and output variables and showcases how to annotate the input and output variables for to help your LLM better understand the tools desired action and how to interact with it. Finally we will add a third tool that inputs a table name and returns the tables column comments to help the LLM understand the context of the data returned from our query or to understand how to better query a table.  
+ 
+
 
 # Watch the Demo
 - Before proceding with the instructions below please watch the demo video to provide context and to use as a reference when performing the technical actions below. []()
@@ -184,7 +188,7 @@ pip install typing
 - Open the file called .demo_profile file inside your VS Code Directory and update your password, dsn, wallet_location and instant client location. Make sure to save your file once updated. 
 ```
 # Oracle 26ai Autonomous Database Connection Settings
-export DB_USER="players"  # Replace with your database username
+export DB_USER="players"          # Replace with your database username
 export DB_PASS="<your pwd>"       # Replace with your database password
 export DB_DSN="<your dsn>"        # Replace with your TNS name (e.g., sluggersapex_low)
 export WALLET_LOCATION="<your path to wallet>"  # Replace with the full path to your wallet directory ex. C:\Users\Chip Baber\code\db_wallets\Wallet_SluggersAPEX
@@ -215,16 +219,16 @@ fi
 - You can select your newly created MCP server and ask a questions via co-pilot to test. Lets test our MCP server and newly created tools now with some questions. 
 
 ```
-What do the AB and H columns do in the teamstats table
+#Get-Table-Column-Comments #Get-Players-AVG-OBP #Get-Players-Stats Describe the AB and H columns in the teamstats table
 ```
-![](assets/2025-10-27-16-55-11.png)
+![](assets/2025-11-05-14-54-23.png)
 
 
 - Now we will get more complex and ask a question that will require the use of all three of our tools. 
 ```
 get all stats for Tank, then calculate his batting average and on base percentage
 ```
-![](assets/2025-10-30-14-43-35.png)
+![](assets/2025-11-05-14-55-31.png)
 
 # How do I deploy this on OCI for Multi-Client Use
 

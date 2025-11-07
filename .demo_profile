@@ -1,8 +1,8 @@
 # Oracle 26ai Autonomous Database Connection Settings
-export DB_USER="players"                              # Replace with your database username, in our example it is players
-export DB_PASS="<your pwd>"                           # Replace with your database password
-export DB_DSN="<your dsn>"                            # Look inside your tnsnames.ora file for these names (e.g., sluggersapex_low)
-export WALLET_LOCATION="<your path to wallet>"        # Replace with the full path to your wallet directory ex. C:\Users\Chip Baber\code\db_wallets\Wallet_SluggersAPEX
+export DB_USER="players"          # Replace with your database username
+export DB_PASS="<your pwd>"       # Replace with your database password
+export DB_DSN="<your dsn>"        # Replace with your TNS name (e.g., sluggersapex_low)
+export WALLET_LOCATION="<your path to wallet>"  # Replace with the full path to your wallet directory ex. C:\Users\Chip Baber\code\db_wallets\Wallet_SluggersAPEX
 export INSTANT_CLIENT_DIR="<your instant client dir>" #Replace with path to instant client. ex. C:\Oracle\instantclient-basic-windows.x64-23.9.0.25.07\instantclient_23_9
 
 # Load additional local settings if they exist

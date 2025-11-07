@@ -32,7 +32,7 @@ async def call_tool(tablename: str):
 
 
 asyncio.run(call_tool("TEAMSTATS"))
-"""
 
+"""
 
 
